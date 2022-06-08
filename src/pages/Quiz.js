@@ -12,7 +12,7 @@ const Quiz = () => {
             answers: ['Washington', 'New York', 'Los Angeles', 'Atlanta'],
             correctAnswer: 'Washington',
             click_index: -1,
-            multiple: -1,
+            multiple: 1,
             selections: [],
             correct_index: 0,
             marks: 3,
@@ -335,9 +335,21 @@ const Quiz = () => {
                             <div className='q_answers'>
                                 {
                                     item.answers.map((answer, i) => (
-                                        <div className='q_option' id='op0' style={{ background: i === item.click_index ? "#025cd9" : "#C4DDFF", color: i === item.click_index ? "#FFFF" : "black", }} onClick={() => {
-                                            item.click_index = i;
-                                            item.click = true;
+                                        <div className='q_option' id='op0' style={{ background: (i === item.click_index || item.selections.includes(i)) ? "#025cd9" : "#C4DDFF", color: (i === item.click_index || item.selections.includes(i)) ? "#FFFF" : "black", }} onClick={() => {
+                                            if (item.multiple === -1) {
+                                                item.click_index = i;
+                                                item.click = true;
+                                            }
+                                            else {
+                                                item.click = true;
+                                                if (!item.selections.includes(i)) {
+                                                    item.selections.push(i);
+
+                                                }
+                                                else {
+                                                    item.selections.splice(item.selections.indexOf(i), 1);
+                                                }
+                                            }
                                             setq_data([...q_data]);
 
                                         }}>
