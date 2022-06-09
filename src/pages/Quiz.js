@@ -4,6 +4,10 @@ import { useTimer } from 'react-timer-hook';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 
+const time = new Date();
+time.setSeconds(time.getSeconds() + 550);
+var quiz_lock = 1;
+
 const Quiz = () => {
 
     const data = [
@@ -279,9 +283,17 @@ const Quiz = () => {
             pause,
             resume,
             restart,
-        } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+        } = useTimer({
+            expiryTimestamp, onExpire: () => {
+                alert('Time is up!');
+                //calls the function to submit the quiz
+                //to be updated later
+            }
+        });
 
-
+        if (minutes < 9) {
+            quiz_lock = 0;
+        }
         return (
             <div style={{ textAlign: 'center', background: "#FFD24C", right: 0, marginRight: "0%", justifyContent: 'center', padding: "0.4%", borderRadius: 10 }}>
                 <div style={{ fontSize: '3vh' }}>
@@ -293,8 +305,8 @@ const Quiz = () => {
 
     const [q_data, setq_data] = useState(data);
 
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 600);
+
+
     return (
         <div className='quiz_page' style={{ alignItems: "center", justifyContent: "center", flexDirection: 'row' }}>
             <div className='acessory_container'>
@@ -338,7 +350,14 @@ const Quiz = () => {
                                         <div className='q_option' id='op0' style={{ background: (i === item.click_index || item.selections.includes(i)) ? "#025cd9" : "#C4DDFF", color: (i === item.click_index || item.selections.includes(i)) ? "#FFFF" : "black", }} onClick={() => {
                                             if (item.multiple === -1) {
                                                 item.click_index = i;
-                                                item.click = true;
+                                                if (item.click === true && item.click_index === item.correct_index) {
+                                                    item.click = false;
+                                                    item.click_index = -1;
+                                                }
+                                                else {
+                                                    item.click = true;
+                                                    item.click_index = i;
+                                                }
                                             }
                                             else {
                                                 item.click = true;
@@ -348,7 +367,11 @@ const Quiz = () => {
                                                 }
                                                 else {
                                                     item.selections.splice(item.selections.indexOf(i), 1);
+                                                    if (item.selections.length === 0) {
+                                                        item.click = false;
+                                                    }
                                                 }
+
                                             }
                                             setq_data([...q_data]);
 
@@ -365,7 +388,9 @@ const Quiz = () => {
                                         setq_data([...q_data]);
 
                                     }}>
-                                    <EmojiFlagsRoundedIcon />
+                                    <div className='assistance_icons'>
+                                        <EmojiFlagsRoundedIcon />
+                                    </div>
                                 </div>
                                 <div className="error_Button" id="assistance_buttons" style={{ marginLeft: "0%", background: item.error === 1 ? '#FF4949' : "#6BD5E1", borderBottomRightRadius: 10 }}
                                     onClick={() => {
@@ -373,7 +398,9 @@ const Quiz = () => {
                                         setq_data([...q_data]);
 
                                     }}>
-                                    <ErrorOutlineRoundedIcon />
+                                    <div className='assistance_icons'>
+                                        <ErrorOutlineRoundedIcon />
+                                    </div>
                                 </div>
                             </div>
 
@@ -390,7 +417,14 @@ const Quiz = () => {
                 </div>
             </div> */}
 
-            <div className='finish_button'>
+            <div className='finish_button' onClick={() => {
+                if (quiz_lock == 0) {
+                    console.log(q_data);
+                }
+                else {
+                    alert("wait");
+                }
+            }}>
                 Finish
             </div>
         </div >

@@ -46,6 +46,7 @@
 
 #assistance_buttons:hover {
     background: #b6e16b !important;
+    transform: scale(1.1);
 }
 
 
@@ -63,13 +64,22 @@
     max-width: fit-content;
     border: 2px solid #025cd9;
     border-radius: 10px;
-    transition: 0.5s;
+    transition: 0.34s;
     cursor: pointer;
 }
 
 .q_option:hover {
     background-color: #025cd9 !important;
     color: white !important;
+    transform: scale(1.05);
+}
+
+.assistance_icons {
+    transition: 0.8s;
+}
+
+#assistance_buttons:hover .assistance_icons:hover {
+    transform: rotate3d(1, 1, 1, 360deg);
 }
 
 
@@ -108,7 +118,7 @@
     font-size: medium;
     font-weight: 600;
     margin-left: 76.5%;
-    background: red;
+    background: #F24C4C;
     padding-right: 0.5%;
     padding-left: 0.5%;
     padding-top: 0.7%;
@@ -116,7 +126,13 @@
     margin-bottom: 0.5%;
     padding-bottom: 0.7%;
     border-radius: 10px;
+    cursor: pointer;
+    transition: 0.35s;
+}
 
+.finish_button:hover {
+    background: #b13636 !important;
+    transform: scale(1.1);
 }
 
 .acessory_container {
