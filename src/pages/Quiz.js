@@ -349,8 +349,8 @@ const Quiz = () => {
                                     item.answers.map((answer, i) => (
                                         <div className='q_option' id='op0' style={{ background: (i === item.click_index || item.selections.includes(i)) ? "#025cd9" : "#C4DDFF", color: (i === item.click_index || item.selections.includes(i)) ? "#FFFF" : "black", }} onClick={() => {
                                             if (item.multiple === -1) {
-                                                item.click_index = i;
-                                                if (item.click === true && item.click_index === item.correct_index) {
+
+                                                if (item.click === true && item.click_index === i) {
                                                     item.click = false;
                                                     item.click_index = -1;
                                                 }
@@ -388,7 +388,7 @@ const Quiz = () => {
                                         setq_data([...q_data]);
 
                                     }}>
-                                    <div className='assistance_icons'>
+                                    <div className='assistance_icons' >
                                         <EmojiFlagsRoundedIcon />
                                     </div>
                                 </div>
