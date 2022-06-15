@@ -3,18 +3,22 @@ import './login.css'
 import logo from '../assets/icons/vit.png'
 import student from '../assets/icons/graduated.png'
 
-const users=[
+const users = [
     {
-        id:"20BLC1028",
-        password:"Amal@2323",
-    }
+        id: "20BLC1028",
+        password: "Amal@2323",
+    },
     {
-        id:"20BLC1029",
-        password:"Amal@2304",
+        id: "20BLC1029",
+        password: "Amal@2304",
     }
 ]
 
 const Login = () => {
+    const handleSubmit = (event) => {
+        // Prevent page reload
+        event.preventDefault();
+    };
     return (
         <div className='login_page' style={{
             backgroundImage:
@@ -40,12 +44,12 @@ const Login = () => {
                     </div>
 
                     <div className="input_field" style={{ display: 'block' }}>
-                        <form className='input_form'>
+                        <form className='input_form' onSubmit={handleSubmit}>
 
-                            <input type="text" name="name" className='text_box' placeholder='Username' />
+                            <input type="text" name="name" className='text_box' placeholder='Username' required />
                             <br></br>
 
-                            <input type="password" name="pass" className='text_box' placeholder='Password' />
+                            <input type="password" name="pass" className='text_box' placeholder='Password' required />
                             <br></br>
 
                             <div className='input_foot'>
