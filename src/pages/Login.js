@@ -3,22 +3,44 @@ import './login.css'
 import logo from '../assets/icons/vit.png'
 import student from '../assets/icons/graduated.png'
 
-const users = [
-    {
-        id: "20BLC1028",
-        password: "Amal@2323",
-    },
-    {
-        id: "20BLC1029",
-        password: "Amal@2304",
-    }
-]
+
 
 const Login = () => {
+
+    const database = [
+        {
+            username: "user1",
+            password: "pass1"
+        },
+        {
+            username: "user2",
+            password: "pass2"
+        }
+    ];
+
+
     const handleSubmit = (event) => {
         // Prevent page reload
         event.preventDefault();
+        var { uname, pass } = document.forms[0];
+
+        // Find user login info
+        const userData = database.find((user) => user.username === uname.value);
+
+        // Compare user info
+        if (userData) {
+            if (userData.password !== pass.value) {
+                // Invalid password
+                alert("pass Invalid");
+            } else {
+                alert("Passed")
+            }
+        } else {
+            // Username not found
+            alert("Username Not found")
+        }
     };
+
     return (
         <div className='login_page' style={{
             backgroundImage:
@@ -46,7 +68,7 @@ const Login = () => {
                     <div className="input_field" style={{ display: 'block' }}>
                         <form className='input_form' onSubmit={handleSubmit}>
 
-                            <input type="text" name="name" className='text_box' placeholder='Username' required />
+                            <input type="text" name="uname" className='text_box' placeholder='Username' required />
                             <br></br>
 
                             <input type="password" name="pass" className='text_box' placeholder='Password' required />
@@ -65,13 +87,13 @@ const Login = () => {
                 <div className='item'>
 
 
-                    <div class="carousel">
-                        <input type="checkbox" class="faux-ui-facia" />
-                        <div class="slide" slide="5" annot="This is the fifth slide title. Photo by David Marcu.">
+                    <div className="carousel">
+                        <input type="checkbox" className="faux-ui-facia" />
+                        <div className="slide" slide="5" annot="This is the fifth slide title. Photo by David Marcu.">
                             <img src="https://ununsplash.imgix.net/uploads/141223808515744db9995/3361b5e1?q=75&fm=jpg&w=602" alt="Slide 5" />
                         </div>
                         <input type="checkbox" class="faux-ui-facia" />
-                        <div class="slide" slide="4" annot="This is the fourth slide title. Photo by Ryan Lum.">
+                        <div className="slide" slide="4" annot="This is the fourth slide title. Photo by Ryan Lum.">
                             <img src="https://unsplash.imgix.net/photo-1415356838286-df6fd593e8b3?q=75&fm=jpg&w=600" alt="Slide 4" />
                         </div>
                         <input type="checkbox" class="faux-ui-facia" />

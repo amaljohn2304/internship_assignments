@@ -36,7 +36,7 @@ const Quiz = () => {
             correct_index: 0,
             click: false,
             flag: -1,
-            marks: 3,
+            marks: 2,
             error: -1,
             correct: false,
         },
@@ -49,7 +49,7 @@ const Quiz = () => {
             multiple: -1,
             selections: [],
             click: false,
-            marks: 3,
+            marks: 1,
             flag: -1,
             error: -1,
             correct: false,
@@ -79,7 +79,7 @@ const Quiz = () => {
             multiple: -1,
             selections: [],
             flag: -1,
-            marks: 3,
+            marks: 1,
             error: -1,
             correct: false,
         },
@@ -420,6 +420,7 @@ const Quiz = () => {
             <div className='finish_button' onClick={() => {
                 if (quiz_lock == 0) {
                     console.log(q_data);
+                    alert("Test ends");
                 }
                 else {
                     alert("wait");
