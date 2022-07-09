@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './quiz.css'
 import { useTimer } from 'react-timer-hook';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+
 
 const time = new Date();
 time.setSeconds(time.getSeconds() + 550);
 var quiz_lock = 1;
 
 const Quiz = () => {
-
     const data = [
         {
             question: 'What is the capital of the United States?',
-            answers: ['Washington', 'New York', 'Los Angeles', 'Atlanta'],
+            answers: ['Washington', 'New York', 'Los Angeles', "California"],
             correctAnswer: 'Washington',
             click_index: -1,
             multiple: 1,
@@ -309,15 +309,21 @@ const Quiz = () => {
 
     return (
         <div className='quiz_page' style={{ alignItems: "center", justifyContent: "center", flexDirection: 'row' }}>
+
             <div className='acessory_container'>
                 <MyTimer expiryTimestamp={time} autoStart={true} />
                 <div className='progress_container'>
                     {
                         q_data.map((item, index) => (
                             <div className='box' key={index}
+                                id={`box${index}`}
                                 style={{
                                     background: item.click === true ? '#C0EDA6' : '#FFD24C',
-                                }}>
+                                }}
+                                onClick={() => {
+                                    document.getElementById(`question_container_${index + 1}`).scrollIntoView({ behavior: 'smooth' })
+                                }}
+                            >
                                 <div style={{ width: item.error === 1 ? "100%" : "0%", height: "0.1%", background: '#FF4949', clear: 'both', fontSize: "0.2vw", borderRadius: 10, visibility: item.error === 1 ? 'visible' : 'hidden' }} className="flag_mark">
                                     &nbsp;
                                 </div>
@@ -330,9 +336,10 @@ const Quiz = () => {
                     }
                 </div>
             </div>
+
             {
                 q_data.map((item, index) => (
-                    <div className='q_container' key={index}>
+                    <div className='q_container' key={index} id={`question_container_${index + 1}`} >
                         <div>
                             <div className='q_question' style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <span><h1>Question {index + 1}</h1></span>
@@ -347,7 +354,7 @@ const Quiz = () => {
                             <div className='q_answers'>
                                 {
                                     item.answers.map((answer, i) => (
-                                        <div className='q_option' id='op0' style={{ background: (i === item.click_index || item.selections.includes(i)) ? "#025cd9" : "#C4DDFF", color: (i === item.click_index || item.selections.includes(i)) ? "#FFFF" : "black", }} onClick={() => {
+                                        <div className='q_option' id={`q${index + 1}option${i + 1}`} style={{ background: (i === item.click_index || item.selections.includes(i)) ? "#025cd9" : "#C4DDFF", color: (i === item.click_index || item.selections.includes(i)) ? "#FFFF" : "black", }} onClick={() => {
                                             if (item.multiple === -1) {
 
                                                 if (item.click === true && item.click_index === i) {
@@ -382,7 +389,7 @@ const Quiz = () => {
                                 }
                             </div>
                             <div className='assistance_container' style={{ width: "100%", height: "10%", }}>
-                                <div className="flag_Button" id="assistance_buttons" style={{ marginLeft: "0%", background: item.flag === 1 ? '#F8CB2E' : "#6BD5E1", borderBottomLeftRadius: 10 }}
+                                <div id={`q${index + 1}flag_Button`} className="assistance_buttons" style={{ marginLeft: "0%", background: item.flag === 1 ? '#F8CB2E' : "#6BD5E1", borderBottomLeftRadius: 10 }}
                                     onClick={() => {
                                         item.flag = item.flag * -1;
                                         setq_data([...q_data]);
@@ -392,7 +399,7 @@ const Quiz = () => {
                                         <EmojiFlagsRoundedIcon />
                                     </div>
                                 </div>
-                                <div className="error_Button" id="assistance_buttons" style={{ marginLeft: "0%", background: item.error === 1 ? '#FF4949' : "#6BD5E1", borderBottomRightRadius: 10 }}
+                                <div id={`q${index + 1}error_Button`} className="assistance_buttons" style={{ marginLeft: "0%", background: item.error === 1 ? '#FF4949' : "#6BD5E1", borderBottomRightRadius: 10 }}
                                     onClick={() => {
                                         item.error = item.error * -1;
                                         setq_data([...q_data]);
@@ -408,6 +415,7 @@ const Quiz = () => {
                     </div>
                 ))
             }
+
             {/* <div className='buttons'>
                 <div className='nav_button' id='prev'>
                     Previous
@@ -417,7 +425,7 @@ const Quiz = () => {
                 </div>
             </div> */}
 
-            <div className='finish_button' onClick={() => {
+            <div className='finish_button' id="finish_button" onClick={() => {
                 if (quiz_lock == 0) {
                     console.log(q_data);
                     alert("Test ends");

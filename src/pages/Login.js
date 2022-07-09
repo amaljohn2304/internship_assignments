@@ -68,14 +68,14 @@ const Login = () => {
                     <div className="input_field" style={{ display: 'block' }}>
                         <form className='input_form' onSubmit={handleSubmit}>
 
-                            <input type="text" name="uname" className='text_box' placeholder='Username' required />
+                            <input type="text" name="uname" className='text_box' placeholder='Username' id="username" required />
                             <br></br>
 
-                            <input type="password" name="pass" className='text_box' placeholder='Password' required />
+                            <input type="password" name="pass" className='text_box' placeholder='Password' id="password" required />
                             <br></br>
 
                             <div className='input_foot'>
-                                <input type="submit" value="Submit" />
+                                <input type="submit" value="Submit" id="submit_button" />
                                 <div className='forgot_pass'>Forgot Password?</div>
                             </div>
 
@@ -109,13 +109,7 @@ const Login = () => {
                             <img src="https://ununsplash.imgix.net/uploads/1413399939678471ea070/2c0343f7?q=75&fm=jpg&w=601" alt="Slide 1" />
                         </div>
                         <div class="counter" count="5"> / 5</div>
-
                     </div>
-
-
-
-
-
                 </div>
 
             </div>

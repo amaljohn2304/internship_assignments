@@ -7,7 +7,7 @@ const Nav = () => {
                 <li><a href="/">Home</a></li>
                 <li><a href="/register">Register</a></li>
                 <li><a href="/login">Login</a></li>
-                <li><a href='/quiz'>Quiz</a></li>
+                <li><a id="quiz_button" href='/quiz'>Quiz</a></li>
             </ul>
         </nav>
     );
