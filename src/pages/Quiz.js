@@ -1,13 +1,43 @@
-import React, { useRef, useState } from 'react';
-import './quiz.css'
-import { useTimer } from 'react-timer-hook';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+import { useTimer } from 'react-timer-hook';
+import { useRef, useState } from 'react';
+import './quiz.css'
 
 
 const time = new Date();
 time.setSeconds(time.getSeconds() + 550);
 var quiz_lock = 1;
+function MyTimer({ expiryTimestamp }) {
+    const {
+        seconds,
+        minutes,
+        hours,
+        days,
+        isRunning,
+        start,
+        pause,
+        resume,
+        restart,
+    } = useTimer({
+        expiryTimestamp, onExpire: () => {
+            alert("Time is up!");
+            //calls the function to submit the quiz
+            //to be updated later
+        }
+    });
+
+    if (minutes < 9) {
+        quiz_lock = 0;
+    }
+    return (
+        <div style={{ textAlign: 'center', background: "#FFD24C", right: 0, marginRight: "0%", justifyContent: 'center', padding: "0.4%", borderRadius: 10 }}>
+            <div style={{ fontSize: '3vh' }}>
+                <span>{hours >= 10 ? hours : "0" + hours}</span>:<span>{minutes >= 10 ? minutes : "0" + minutes}</span>:<span>{seconds >= 10 ? seconds : "0" + seconds}</span>
+            </div>
+        </div>
+    );
+}
 
 const Quiz = () => {
     const data = [
@@ -272,36 +302,7 @@ const Quiz = () => {
 
     ]
 
-    function MyTimer({ expiryTimestamp }) {
-        const {
-            seconds,
-            minutes,
-            hours,
-            days,
-            isRunning,
-            start,
-            pause,
-            resume,
-            restart,
-        } = useTimer({
-            expiryTimestamp, onExpire: () => {
-                alert('Time is up!');
-                //calls the function to submit the quiz
-                //to be updated later
-            }
-        });
 
-        if (minutes < 9) {
-            quiz_lock = 0;
-        }
-        return (
-            <div style={{ textAlign: 'center', background: "#FFD24C", right: 0, marginRight: "0%", justifyContent: 'center', padding: "0.4%", borderRadius: 10 }}>
-                <div style={{ fontSize: '3vh' }}>
-                    <span>{hours >= 10 ? hours : "0" + hours}</span>:<span>{minutes >= 10 ? minutes : "0" + minutes}</span>:<span>{seconds >= 10 ? seconds : "0" + seconds}</span>
-                </div>
-            </div>
-        );
-    }
 
     const [q_data, setq_data] = useState(data);
 
@@ -416,14 +417,6 @@ const Quiz = () => {
                 ))
             }
 
-            {/* <div className='buttons'>
-                <div className='nav_button' id='prev'>
-                    Previous
-                </div>
-                <div className='nav_button' id='next'>
-                    Next
-                </div>
-            </div> */}
 
             <div className='finish_button' id="finish_button" onClick={() => {
                 if (quiz_lock == 0) {
